@@ -19,7 +19,6 @@ public class Graph implements GraphInterface
      */
     public static void main() {
         Graph g = new Graph();
-        
         /*
         g.neueEcke("Mainz");
         g.neueEcke("Wiesbaden");
