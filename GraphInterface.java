@@ -6,6 +6,7 @@
  * @version (eine Versionsnummer oder ein Datum)
  */
 
+
 public interface GraphInterface
 {
     /**
