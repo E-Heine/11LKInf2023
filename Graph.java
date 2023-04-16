@@ -17,9 +17,7 @@ public class Graph implements GraphInterface
      */
     public static void main() {
         Graph g = new Graph();
-        
-        
-        
+
         /*
         g.neueEcke("Mainz");
         g.neueEcke("Wiesbaden");
@@ -33,8 +31,8 @@ public class Graph implements GraphInterface
         g.zeige();
         //g.speichere();
 
-        g.exportiereCSV();
-        //g.importiereCSV(); // fehlt noch
+        g.exportiere();
+        //g.importiere(); // fehlt noch
 
     }
 
@@ -108,7 +106,7 @@ public class Graph implements GraphInterface
     }
 
     /**
-     * 
+     * Erzeugt eine gerichtete Kante mit Gewicht 1
      */
     public void neueKante(String vonEcke, String zuEcke){
         Ecke von = ecken.get(vonEcke);
@@ -119,15 +117,17 @@ public class Graph implements GraphInterface
     }
 
     /**
-     * 
+     * Erzeugt zwei gerichtete Kanten, beide Gewichte werden angegeben.
+     * Soll nur eine gewichtete Kante erzeigt werden, für das andere Gewicht
+     * 0 übergeben.
      */
     public void neueKante(String vonEcke, String zuEcke, double gewicht, double rueckgewicht)
     {
         Ecke von = ecken.get(vonEcke);
         Ecke nach = ecken.get(zuEcke);
         if (von!=null && nach!=null) {
-            von.addKante(nach, gewicht);
-            nach.addKante(von, rueckgewicht);            
+            if (gewicht != 0) von.addKante(nach, gewicht);
+            if (rueckgewicht != 0) nach.addKante(von, rueckgewicht);            
         }
     }
 
@@ -206,10 +206,10 @@ public class Graph implements GraphInterface
         }
     }
 
-    public void exportiereCSV(){
+    public void exportiere(){
 
         try {
-            PrintStream ps = new PrintStream(new FileOutputStream("export.csv"));
+            PrintStream ps = new PrintStream(new FileOutputStream("export.txt"));
 
             Ecke[] e = getEcken();
             ps.println(e.length); // header: Anzahl Ecken, der Rest sind Kanten
@@ -231,7 +231,7 @@ public class Graph implements GraphInterface
 
     }
 
-    public void importiereCSV(){
+    public void importiere(){
 
     }
 
