@@ -11,6 +11,7 @@ public class Graph implements GraphInterface
 {
 
     
+    
     /*
      * Einfache Start- und Testmethode für die Klasse Graph: erzeugen, hinzufügen,
      * etfernen, ausgeben, laden, speichern
