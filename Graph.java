@@ -17,7 +17,6 @@ public class Graph implements GraphInterface
      */
     public static void main() {
         Graph g = new Graph();
-
         /*
         g.neueEcke("Mainz");
         g.neueEcke("Wiesbaden");
@@ -26,14 +25,14 @@ public class Graph implements GraphInterface
         g.neueKante("Mainz", "Wiesbaden", 12, 12);
         g.neueKante("Mainz", "Oppenheim", 22, 22);
         g.neueKante("Mainz", "Ingelheim", 17, 17);
-        */
+         */
         g.lade();
         g.zeige();
         //g.speichere();
 
-        g.exportiere();
-        //g.importiere(); // fehlt noch
-
+        //g.exportiere();
+        //g.importiere();
+        
     }
 
     /*
@@ -86,6 +85,8 @@ public class Graph implements GraphInterface
      */
     public void neueEcke(String label)
     {
+        if (ecken.containsKey(label)) throw new Error("no duplicate keys allowed: "+label);
+        
         Ecke e = new Ecke(label);
         ecken.put(label, e);
     }
@@ -171,8 +172,6 @@ public class Graph implements GraphInterface
 
     }
 
-
-
     /**
      * 
      */
@@ -209,7 +208,7 @@ public class Graph implements GraphInterface
     public void exportiere(){
 
         try {
-            PrintStream ps = new PrintStream(new FileOutputStream("export.txt"));
+            PrintStream ps = new PrintStream(new FileOutputStream("graph.txt"));
 
             Ecke[] e = getEcken();
             ps.println(e.length); // header: Anzahl Ecken, der Rest sind Kanten
@@ -233,6 +232,36 @@ public class Graph implements GraphInterface
 
     public void importiere(){
 
+        List <String[]> lines = new ArrayList();
+        try (BufferedReader br = new BufferedReader(new FileReader("graph.txt"))) {
+            String line;
+            while ((line = br.readLine()) != null) {
+                String[] values = line.split(" "); // Trennzeichen ist hier das Leerzeichen " "
+                lines.add(values);
+            }
+        } catch (IOException ioe) {}
+
+        int n=Integer.parseInt(lines.get(0)[0]); // erste Zeile, nur ein Eintrag: Anzahl der Ecken
+        lines.remove(0); // erste Zeile entfernen
+        lines.remove(0); // optische Trennung entfernen
+        for (int i=0; i<n; i++) { // beginnend bei der ersten Ecke, Daten lesen und Ecken erzeugen
+            String label = lines.get(0)[0];
+            int x = Integer.parseInt(lines.get(0)[1]);
+            int y = Integer.parseInt(lines.get(0)[2]);
+            this.neueEcke(label);
+            Ecke e = getEcke(label); // neue Ecke holen und die Koordinaten nachträglich setzen
+            e.x = x;
+            e.y = y;
+            lines.remove(0); // gerade verarbeitete Zeile entfernen
+        }
+        while (lines.size() > 0) { // alle Kanten verarbeiten
+            String von = lines.get(0)[0];
+            String nach = lines.get(0)[1];
+            double gewicht = Double.parseDouble(lines.get(0)[2]);
+            Ecke e = ecken.get(von);
+            neueKante(von, nach, gewicht, 0); // nur jeweils die Hin-Kante erzeugen
+            lines.remove(0);
+        }
     }
 
 }
