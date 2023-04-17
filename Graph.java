@@ -1,6 +1,21 @@
 import java.util.*;
 import java.io.*;
 
+/* Aufgaben: 
+ * main() verstehen, Funktionen von Graph (Interface) verstehen, Datenstruktur verstehen
+ * 
+ * jeweils 5-10 Städte in RLP, Hessen, NRW, BaWü, Bayern erfassen
+ * speichern, laden, exportieren, importieren: mit Dateiname
+ * 
+ * Die Städte alle zusammenführen in eine Datei, oder mehrfach importieren
+ * 
+ * Model, View, Controller - Konzept einfügen, GUI (über github-Integration)
+ * Gewichte an Kanten schreiben lassen (so wie die Labels an die Ecken)
+ * 
+ * random traversal mit Ausgabe, random Suche, Depth-first Suche, Breadth-first Suche
+ */
+
+
 /**
  * Beschreiben Sie hier die Klasse Graph.
  * 
@@ -10,6 +25,7 @@ import java.io.*;
 public class Graph implements GraphInterface
 {
 
+    
     /*
      * Einfache Start- und Testmethode für die Klasse Graph: erzeugen, hinzufügen,
      * etfernen, ausgeben, laden, speichern
@@ -17,7 +33,19 @@ public class Graph implements GraphInterface
      */
     public static void main() {
         Graph g = new Graph();
-    
+
+        /*
+          // viele Ecken erzeugen...
+        for (int i=0; i<10; i++) {
+        g.neueEcke(i+"");
+        }
+        for (int i=0; i<10; i++) {
+        g.neueKante(i+"", (int)(Math.random()*10)+"");
+        g.neueKante(i+"", (int)(Math.random()*10)+"");
+        }
+         */
+
+        
         g.neueEcke("Mainz");
         g.neueEcke("Wiesbaden");
         g.neueEcke("Oppenheim");
@@ -25,15 +53,16 @@ public class Graph implements GraphInterface
         g.neueKante("Mainz", "Wiesbaden", 12, 12);
         g.neueKante("Mainz", "Oppenheim", 22, 22);
         g.neueKante("Mainz", "Ingelheim", 17, 17);
-        
-        //g.lade();
-        //g.speichere();
+    
 
-        //g.exportiere();
+        //g.lade();
+        g.speichere();
+
         //g.importiere();
-        
+        //g.exportiere();
+
         g.zeige();
-        
+
     }
 
     /*
@@ -87,7 +116,7 @@ public class Graph implements GraphInterface
     public void neueEcke(String label)
     {
         if (ecken.containsKey(label)) throw new Error("no duplicate keys allowed: "+label);
-        
+
         Ecke e = new Ecke(label);
         ecken.put(label, e);
     }
@@ -244,7 +273,7 @@ public class Graph implements GraphInterface
         int n=Integer.parseInt(lines.get(0)[0]); // erste Zeile, nur ein Eintrag: Anzahl der Ecken
         lines.remove(0); // erste Zeile entfernen
         lines.remove(0); // optische Trennung entfernen
-        
+
         for (int i=0; i<n; i++) { // beginnend bei der ersten Ecke, Daten lesen und Ecken erzeugen
             String label = lines.get(0)[0];
             int x = Integer.parseInt(lines.get(0)[1]);
@@ -255,7 +284,7 @@ public class Graph implements GraphInterface
             e.y = y;
             lines.remove(0); // gerade verarbeitete Zeile entfernen
         }
-        
+
         while (lines.size() > 0) { // alle Kanten verarbeiten
             String von = lines.get(0)[0];
             String nach = lines.get(0)[1];
@@ -264,6 +293,5 @@ public class Graph implements GraphInterface
             lines.remove(0);
         }
     }
-    
 
 }

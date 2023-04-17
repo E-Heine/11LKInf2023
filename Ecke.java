@@ -24,7 +24,8 @@ public class Ecke implements Serializable
      */
     public Ecke(String label)
     {
-        this(label, 0, 0);
+        //this(label, 0, 0);
+        this(label, (int)(Math.random()*500), (int)(Math.random()*500));
     }
 
     public Ecke(String label, int x, int y)
