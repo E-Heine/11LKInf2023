@@ -3,12 +3,13 @@ import java.io.*;
 import java.util.*;
 
 /**
- * Beschreiben Sie hier die Klasse Graph.
+ * Erste Version der Klasse Graph - mit Matrixdarstellung, ohne Labels. Einfügen von
+ * Ecken nur schwer möglich.
  * 
  * @author (Ihr Name) 
  * @version (eine Versionsnummer oder ein Datum)
  */
-public class Graph_v1
+public class Graph_v1 implements GraphInterface
 {
     // Instanzvariablen - ersetzen Sie das folgende Beispiel mit Ihren Variablen
     private int[][] amatrix;
@@ -18,10 +19,10 @@ public class Graph_v1
     public static void main() {
         Graph_v1 g = new Graph_v1();
         g.setDemo();
-        g.print();
-        g.readCSV("abcd.csv");
-        g.print();
-        g.printCSV("out.csv");
+        g.zeige();
+        g.lade("abcd.csv");
+        g.zeige();
+        g.lade("out.csv");
     }
 
     /**
@@ -48,11 +49,32 @@ public class Graph_v1
         amatrix[3][0]=1; // DA
     }
 
-    public void print() {
-        printAdjMatrix();
+    public void neueEcke(String label){
+    
     }
 
-    public void printAdjMatrix() {
+    public void loescheEcke(String label){
+        
+    }
+
+    public void neueKante(String vonEcke, String zuEcke){
+        
+    }
+
+    public void neueKante(String vonEcke, String zuEcke, double gewicht, double rueckgewicht){
+        
+    }
+
+    public void loescheKante(String vonEcke, String zuEcke){
+        
+    }
+
+    
+    public void zeige() {
+        zeigeAdjMatrix();
+    }
+
+    public void zeigeAdjMatrix() {
         for (int i=0; i<n; i++){
             System.out.print("    "+label[i]);
         }
@@ -66,7 +88,11 @@ public class Graph_v1
         }
     }
 
-    public void printCSV(String filename) {
+    public void speichere() {
+        speichere("graph.csv");
+    }
+
+    public void speichere(String filename) {
         //PrintStream ps = System.out;
         try {
             PrintStream ps = new PrintStream(new FileOutputStream(filename));
@@ -82,7 +108,11 @@ public class Graph_v1
         }
     }
 
-    public void readCSV(String filename) {
+    public void lade() {
+        lade("graph.csv");
+    }
+
+    public void lade(String filename) {
 
         List <String[]> lines = new ArrayList();
         try (BufferedReader br = new BufferedReader(new FileReader(filename))) {
@@ -106,7 +136,7 @@ public class Graph_v1
         }
     }
 
-    public void printAdjListe() {
+    public void zeigeAdjListe() {
         for (int i=0; i<n; i++){
             System.out.print(label[i]+": ");
             for (int j=0; j<n; j++){

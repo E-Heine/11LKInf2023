@@ -17,7 +17,7 @@ public class Graph implements GraphInterface
      */
     public static void main() {
         Graph g = new Graph();
-        /*
+    
         g.neueEcke("Mainz");
         g.neueEcke("Wiesbaden");
         g.neueEcke("Oppenheim");
@@ -25,13 +25,14 @@ public class Graph implements GraphInterface
         g.neueKante("Mainz", "Wiesbaden", 12, 12);
         g.neueKante("Mainz", "Oppenheim", 22, 22);
         g.neueKante("Mainz", "Ingelheim", 17, 17);
-         */
-        g.lade();
-        g.zeige();
+        
+        //g.lade();
         //g.speichere();
 
         //g.exportiere();
         //g.importiere();
+        
+        g.zeige();
         
     }
 
@@ -72,7 +73,7 @@ public class Graph implements GraphInterface
         Ecke[] e = new Ecke[o.length];
         for (int i=0; i<o.length; i++) {
             e[i] = (Ecke)o[i];
-        }
+        }                
         return e;
 
     }
@@ -114,7 +115,7 @@ public class Graph implements GraphInterface
         Ecke nach = ecken.get(zuEcke);
         if (von!=null && nach!=null) {
             von.addKante(nach, 1);
-        }
+        } else throw new Error ("Ecken "+vonEcke+" "+zuEcke+" existieren nicht beide.");
     }
 
     /**
@@ -129,7 +130,7 @@ public class Graph implements GraphInterface
         if (von!=null && nach!=null) {
             if (gewicht != 0) von.addKante(nach, gewicht);
             if (rueckgewicht != 0) nach.addKante(von, rueckgewicht);            
-        }
+        } else throw new Error ("Ecken "+vonEcke+" "+zuEcke+" existieren nicht beide.");
     }
 
     /**
@@ -145,7 +146,7 @@ public class Graph implements GraphInterface
                     von.removeKante(k[i]);
                 }
             }
-        }
+        } else throw new Error ("Ecken "+vonEcke+" "+zuEcke+" existieren nicht beide.");
     }
 
     /**
@@ -182,7 +183,6 @@ public class Graph implements GraphInterface
             ObjectInputStream ois = new ObjectInputStream(fis);            
             // der OIS ist "um den FIS herum" gewrappt. Stelle Dir Rohre vor,
             // die ineinander geschoben werden - so geht das mit IO-Streams.
-
             ecken = (HashMap<String, Ecke>) ois.readObject();
             fis.close();
         } catch (Exception e) {
@@ -244,6 +244,7 @@ public class Graph implements GraphInterface
         int n=Integer.parseInt(lines.get(0)[0]); // erste Zeile, nur ein Eintrag: Anzahl der Ecken
         lines.remove(0); // erste Zeile entfernen
         lines.remove(0); // optische Trennung entfernen
+        
         for (int i=0; i<n; i++) { // beginnend bei der ersten Ecke, Daten lesen und Ecken erzeugen
             String label = lines.get(0)[0];
             int x = Integer.parseInt(lines.get(0)[1]);
@@ -254,14 +255,15 @@ public class Graph implements GraphInterface
             e.y = y;
             lines.remove(0); // gerade verarbeitete Zeile entfernen
         }
+        
         while (lines.size() > 0) { // alle Kanten verarbeiten
             String von = lines.get(0)[0];
             String nach = lines.get(0)[1];
             double gewicht = Double.parseDouble(lines.get(0)[2]);
-            Ecke e = ecken.get(von);
             neueKante(von, nach, gewicht, 0); // nur jeweils die Hin-Kante erzeugen
             lines.remove(0);
         }
     }
+    
 
 }
