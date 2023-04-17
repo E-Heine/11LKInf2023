@@ -2,10 +2,14 @@ import java.util.*;
 import java.io.*;
 
 /* Aufgaben: 
- * main() verstehen, Funktionen von Graph (Interface) verstehen, Datenstruktur verstehen
+ * Funktionen von Graph (Interface) verstehen
+ * Datenstruktur verstehen
+ * Dateihandling verstehen
+ * main() verstehen
+ * 
  * 
  * jeweils 5-10 Städte in RLP, Hessen, NRW, BaWü, Bayern erfassen
- * speichern, laden, exportieren, importieren: mit Dateiname
+ * speichern, laden, exportieren, importieren: mit Dateiname erweitern
  * 
  * Die Städte alle zusammenführen in eine Datei, oder mehrfach importieren
  * 
