@@ -4,8 +4,8 @@ import java.io.*;
 /* Aufgaben: 
  * Funktionen von Graph (Interface) verstehen
  * Datenstruktur verstehen
- * Dateihandling verstehen
  * main() verstehen
+ * Dateihandling verstehen
  * 
  * 
  * jeweils 5-10 Städte in RLP, Hessen, NRW, BaWü, Bayern erfassen
@@ -13,12 +13,13 @@ import java.io.*;
  * 
  * Die Städte alle zusammenführen in eine Datei, oder mehrfach importieren
  * 
+ * Hauptmenu einbauen?
+ * 
  * Model, View, Controller - Konzept einfügen, GUI (über github-Integration)
  * Gewichte an Kanten schreiben lassen (so wie die Labels an die Ecken)
  * 
  * random traversal mit Ausgabe, random Suche, Depth-first Suche, Breadth-first Suche
  */
-
 
 /**
  * Beschreiben Sie hier die Klasse Graph.
@@ -29,7 +30,6 @@ import java.io.*;
 public class Graph implements GraphInterface
 {
 
-    
     /*
      * Einfache Start- und Testmethode für die Klasse Graph: erzeugen, hinzufügen,
      * etfernen, ausgeben, laden, speichern
@@ -39,7 +39,7 @@ public class Graph implements GraphInterface
         Graph g = new Graph();
 
         /*
-          // viele Ecken erzeugen...
+        // viele Ecken erzeugen...
         for (int i=0; i<10; i++) {
         g.neueEcke(i+"");
         }
@@ -49,7 +49,6 @@ public class Graph implements GraphInterface
         }
          */
 
-        
         g.neueEcke("Mainz");
         g.neueEcke("Wiesbaden");
         g.neueEcke("Oppenheim");
@@ -57,7 +56,6 @@ public class Graph implements GraphInterface
         g.neueKante("Mainz", "Wiesbaden", 12, 12);
         g.neueKante("Mainz", "Oppenheim", 22, 22);
         g.neueKante("Mainz", "Ingelheim", 17, 17);
-    
 
         //g.lade();
         g.speichere();
